@@ -2,6 +2,7 @@ import AppDataSource from "../../data-source";
 import { Contact } from "../../entities/contact.entity";
 import { User } from "../../entities/user.entity";
 import { IContactRequest } from "../../interfaces/contact";
+import { contactCreateSerializer } from "../../serializers/contact.serializers";
 
 export const createContactService = async (
   contactData: IContactRequest,
@@ -22,5 +23,10 @@ export const createContactService = async (
   const createContact = contactRepository.create(contact);
   const newContact = await contactRepository.save(createContact);
 
-  return newContact;
+  const validatedContact = await contactCreateSerializer.validate(newContact, {
+    stripUnknown: true,
+    abortEarly: true,
+  });
+
+  return validatedContact;
 };
