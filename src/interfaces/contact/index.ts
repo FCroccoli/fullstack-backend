@@ -12,3 +12,12 @@ export interface IContactUpdate {
   telephone?: string | undefined | null;
   password?: string | undefined | null;
 }
+
+export interface IContact {
+  id: string;
+  name: string;
+  last_name: string;
+  email: string;
+  telephone: string;
+  createdAt: Date;
+}
