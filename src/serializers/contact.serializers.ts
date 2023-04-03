@@ -1,5 +1,9 @@
 import * as yup from "yup";
-import { IContactRequest, IContactUpdate } from "../interfaces/contact";
+import {
+  IContact,
+  IContactRequest,
+  IContactUpdate,
+} from "../interfaces/contact";
 
 export const contactUpdateSerializer: yup.Schema<IContactUpdate> = yup
   .object()
@@ -18,3 +22,12 @@ export const contactCreateSerializer: yup.Schema<IContactRequest> = yup
     email: yup.string().email().required(),
     telephone: yup.string().required(),
   });
+
+export const contactSerializer: yup.Schema<IContact> = yup.object().shape({
+  id: yup.string().required(),
+  first_name: yup.string().required(),
+  last_name: yup.string().required(),
+  email: yup.string().email().required(),
+  telephone: yup.string().required(),
+  createdAt: yup.date().required(),
+});

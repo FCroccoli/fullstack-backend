@@ -2,7 +2,7 @@ import AppDataSource from "../../data-source";
 import { Contact } from "../../entities/contact.entity";
 import { User } from "../../entities/user.entity";
 import { IContactRequest } from "../../interfaces/contact";
-import { contactCreateSerializer } from "../../serializers/contact.serializers";
+import { contactSerializer } from "../../serializers/contact.serializers";
 
 export const createContactService = async (
   contactData: IContactRequest,
@@ -20,10 +20,10 @@ export const createContactService = async (
     user: userData as User,
   };
 
-  const createContact = contactRepository.create(contact);
-  const newContact = await contactRepository.save(createContact);
+  const newContact = contactRepository.create(contact);
+  await contactRepository.save(newContact);
 
-  const validatedContact = await contactCreateSerializer.validate(newContact, {
+  const validatedContact = await contactSerializer.validate(newContact, {
     stripUnknown: true,
     abortEarly: true,
   });
